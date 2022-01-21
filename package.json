@@ -1,0 +1,23 @@
+{
+  "name": "back-end-terms",
+  "version": "1.0.0",
+  "description": "バックエンドコーディング規約",
+  "main": "index.js",
+  "scripts": {
+    "lint": "markdownlint --ignore node_modules ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eichiii-inc/back-end-terms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eichiii-inc/back-end-terms/issues"
+  },
+  "homepage": "https://github.com/eichiii-inc/back-end-terms#readme",
+  "devDependencies": {
+    "markdownlint": "^0.25.1",
+    "markdownlint-cli": "^0.30.0"
+  }
+}

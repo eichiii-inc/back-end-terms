@@ -1,0 +1,14 @@
+# logs
+*.log
+
+# Dependency directories
+node_modules/
+
+# package-lock.json
+package-lock.json
+
+# macOS
+.DS_Store
+
+# Optional npm cache directory
+.npm
