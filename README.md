@@ -1,3 +1,3 @@
-# Eichiii inc Frontend コード規約
+# Eichiii inc Backend コード規約
 
 バックエンドコーディング規約
