@@ -1,15 +1,23 @@
 # Golang コーディング規約
 
 ## ディレクトリ
+各パッケージ
 ```
 src/
-    conf/ -- 全体で利用する固定値などの宣言ファイル
+    conf/ -- 各パッケージのconf処理用
     dao/ -- DBや外部へ接続する（Data Access Object）
-    entity/ -- 全体で利用するモデルの宣言
+    entity/ -- パッケージのみ利用するモデルの宣言
     handler/ -- routeから呼び出される。主にバリデーションを行い、serviceを呼び出す
     route/ -- 受け付けるパスと実行handlerの接続
     service/ -- ビジネスロジックの記述、DAOの利用
+```
+api-common -- 共通処理
+```
+src/
+    conf/ -- 全体で利用する固定値などの宣言ファイル
     config/ -- dev/stg/prodでの固定値の分離設定ファイル
+    dao/ -- DBや外部へ接続する（Data Access Object）
+    entity/ -- 全体で利用するモデルの宣言
     log/ -- ログ出力用ラッパー
     middleware/ -- Authなどの中間処理
     util/ -- 便利処理や共通処理
