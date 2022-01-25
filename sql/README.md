@@ -36,7 +36,7 @@ from
 
 // good
 SELECT
-  *
+	*
 FROM
-  user_db.users AS uu
+	user_db.users AS uu
 ```
