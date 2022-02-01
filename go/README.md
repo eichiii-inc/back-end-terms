@@ -94,6 +94,23 @@ var message string
 message := ""
 ```
 
+## 制御文
+
+論理値同士の比較はしない
+
+```Go
+// bad
+if isEnable == true {
+  // isEnableがtrueの場合の処理
+}
+
+// good
+if isEnable {
+  // isEnableがtrueの場合の処理
+}
+
+```
+
 ## 構造体
 
 構造体を宣言する際は、フィールドのコメントを記載する  
@@ -141,3 +158,13 @@ func Contents(filename string) (string, error) {
     return string(result), nil // f will be closed if we return here.
 }
 ```
+
+## ログレベル
+
+エラーの原因や程度に応じて、ログレベルを使い分ける
+FATAL -- アプリケーションの継続が不可能になる深刻な問題が発生した場合
+ERROR -- SQLエラーやプログラムエラー等、アプリケーション内部で問題が発生し、処理を継続できない場合
+WARN  -- API実行時の権限不足や、APIの不適切な使用などリクエストに問題がある場合
+INFO  -- 実行時の注目すべき情報
+DEBUG -- システムの動作検証に必要な場合
+TRACE -- デバッグ情報よりも、さらに詳細な情報
