@@ -163,9 +163,78 @@ func Contents(filename string) (string, error) {
 
 エラーの原因や程度に応じて、ログレベルを使い分ける
 
-* FATAL -- アプリケーションの継続が不可能になる深刻な問題が発生した場合
-* ERROR -- SQLエラーやプログラムエラー等、アプリケーション内部で問題が発生し、処理を継続できない場合
-* WARN  -- API実行時の権限不足や、APIの不適切な使用などリクエストに問題がある場合
-* INFO  -- 実行時の注目すべき情報
-* DEBUG -- システムの動作検証に必要な場合
-* TRACE -- デバッグ情報よりも、さらに詳細な情報
+| レベル | 使用方法 |
+------|------
+| FATAL |  （使用しない）アプリケーションの継続が不可能になる深刻な問題が発生した場合、アプリケイーションが停止するため使用しない |
+| ERROR | SQLエラーやプログラムエラー等、アプリケーション内部で問題が発生し、処理を継続できない場合 |
+| WARN | 処理を継続可能な問題が発生した場合、問題の情報と継続の情報<br/>また、API実行時の権限不足や、APIの不適切な使用などリクエストに問題がある場合 |
+| INFO | 実行開始時のメソッド名と引数の情報 |
+| DEBUG | システムの動作検証に必要な場合、ステップや条件確認 |
+| TRACE | （使用しない）デバッグ情報よりも、さらに詳細な情報、開発時のみ利用できるとする。同行を削除するか、プロダクション実行では絶対に実行されないようにすること |
+
+## 固定値確認での複数条件分岐
+
+タイプなどの、固定値を確認する場合は、if-elseでネストするのではなくswitchを使用する  
+switchは、１行以上の処理を記述する場合は、breakを記述しない、defaultの記述を行う  
+チェック外の場合は、処理続行可能ならwarningを記述、続行不可ならerrorを出力する
+
+```go
+const (
+// 施設ステータス
+StatusDraft   = 1 // 下書き
+StatusEnable  = 2 // 利用中
+StatusDisable = 3 // 利用不可
+)
+status := 1
+
+// bad
+if status == StatusDraft {
+    // 下書きの場合の処理
+} else if status == StatusEnable {
+    // 利用中の場合の処理
+} else if status == StatusDisable {
+    // 利用不可の場合の処理
+} else {
+    // 当てはまらない処理
+}
+
+// good
+switch status {
+case StatusDraft:
+    // 下書きの場合の処理
+case StatusEnable:
+    // 利用中の場合の処理
+case StatusDisable:
+    // 利用不可の場合の処理
+default:
+    // 当てはまらない処理
+}
+
+```
+
+## メソッドの設計
+
+条件分岐後の処理が、個別に実行可能な場合や、if内の処理が大きくなる場合、別のメソッドに処理を分離する
+
+```go
+const (
+	Detail = 1
+	Place = 2
+)
+func UpdatePicture(typeID int64, pic []Picture) (err error) {
+    switch typeID {
+    case Detail:
+        return UpdatePictureForDetail(pic)
+    case Place:
+        return UpdatePictureForPlace(pic)
+    default:
+        return errors.New(fmt.Sprintf("No Type ID %d", typeID))
+    }
+}
+func UpdatePictureForDetail(pic []Picture) (err error) {
+    // 処理
+}
+func UpdatePictureForPlace(pic []Picture) (err error) {
+    // 処理
+}
+```
