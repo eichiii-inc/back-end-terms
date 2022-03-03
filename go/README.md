@@ -1,7 +1,9 @@
 # Golang コーディング規約
 
 ## ディレクトリ
+
 各パッケージ
+
 ```
 src/
     conf/ -- 各パッケージのconf処理用
@@ -11,7 +13,9 @@ src/
     route/ -- 受け付けるパスと実行handlerの接続
     service/ -- ビジネスロジックの記述、DAOの利用
 ```
+
 api-common -- 共通処理
+
 ```
 src/
     conf/ -- 全体で利用する固定値などの宣言ファイル
@@ -25,7 +29,9 @@ src/
 ```
 
 ## ファイル名
+
 スネークケースの命名
+
 ```
 // bad
 BookSearch.go
@@ -35,11 +41,13 @@ book_search.go
 ```
 
 ## 記述
+
 * インデント  
 ハードタブ（タブ文字）を使用し、ソフトタブ（半角スペース）を使用しない。
 * １行あたりの文字数  
 制限はない。長すぎる場合は改行してもよい。
 * コメント // の後には１スペースを入れる
+
 ```go
 // bad
 name := "" //名前
@@ -49,20 +57,24 @@ name := "" // 名前
 ```
 
 ## コードを自動整形する
+
 1. コーディング規約に従ってコードを自動整形するためのツール (go fmt) を使用する
 2. golang.org/x/tools/cmd/goimports (go goimports)を使用する。  
 パラメータは、（-w -local "github.com/eichiii-inc" $FilePath$）
 
 ## 命名規則
+
 公開メソッド、フィールド  
 大文字（アッパーキャメルケース）で始める
+
 ```Go
 // good
 MexedCaps := ""
 ```
 
-非公開メソッド、フィールド 
+非公開メソッド、フィールド
 小文字（キャメルケース）で始める
+
 ```Go
 // good
 mixedCaps := ""
@@ -70,6 +82,7 @@ mixedCaps := ""
 
 コンストラクタ
 New + 生成対象の構造体名
+
 ```Go
 type Book struct {
 	Name string
@@ -132,8 +145,10 @@ type User struct {
 ```
 
 ## defer（遅延関数）
+
 関数から戻る直前に実行される  
 ファイルの閉じ忘れなどを防ぐ。Open後、必ずCloseが必要な処理には記述する
+
 ```go
 // Contents returns the file's contents as a string.
 func Contents(filename string) (string, error) {
