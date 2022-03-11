@@ -40,3 +40,30 @@ SELECT
 FROM
 	user_db.users AS uu
 ```
+
+### GROUP BY
+* 集約関数を使う場合は順番を揃えてSELECT句の最後に集約関数を使う
+```sql
+// bad
+SELECT
+    user_id,
+    COUNT(*) AS cnt,
+    age
+FROM
+    user_db.users AS uu
+GROUP BY
+    user_id,
+    age
+
+
+// good
+SELECT
+    user_id,
+    age,
+    COUNT(*) AS cnt
+FROM
+    user_db.users AS uu
+GROUP BY
+    user_id,
+    age
+```
