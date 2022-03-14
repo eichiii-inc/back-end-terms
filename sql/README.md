@@ -43,11 +43,12 @@ FROM
 
 ### GROUP BY
 * 集約関数を使う場合は順番を揃えてSELECT句の最後に集約関数を使う
+* COUNTは、できる限り アスタリスクではなく、集計対象となるユニークとなるIDを指定する
 ```sql
 // bad
 SELECT
     user_id,
-    COUNT(user_id) AS cnt,
+    COUNT(*) AS cnt,
     age
 FROM
     user_db.users AS uu
