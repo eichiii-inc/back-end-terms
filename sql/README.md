@@ -47,7 +47,7 @@ FROM
 // bad
 SELECT
     user_id,
-    COUNT(*) AS cnt,
+    COUNT(user_id) AS cnt,
     age
 FROM
     user_db.users AS uu
@@ -60,7 +60,7 @@ GROUP BY
 SELECT
     user_id,
     age,
-    COUNT(*) AS cnt
+    COUNT(user_id) AS cnt
 FROM
     user_db.users AS uu
 GROUP BY
